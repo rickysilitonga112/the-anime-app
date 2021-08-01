@@ -13,7 +13,7 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: kPrimaryBackgroundColor,
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 12, right: 12),
@@ -44,93 +44,94 @@ class DetailScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 160,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      image: DecorationImage(
+                          image: ExactAssetImage(
+                            'assets/${animeData.banner}.jpg',
+                          ),
+                          fit: BoxFit.fill),
                     ),
-                    Container(
-                      height: 160,
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                        image: DecorationImage(
-                            image: ExactAssetImage(
-                              'assets/${animeData.banner}.jpg',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            animeData.title,
+                            style: kTextStyle.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
                             ),
-                            fit: BoxFit.fill),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            animeData.genre,
+                            style: kTextStyle.copyWith(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              animeData.title,
-                              style: kTextStyle.copyWith(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              animeData.genre,
-                              style: kTextStyle.copyWith(
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                        ReusableFavoriteButton(),
-                      ],
-                    ),
-                    SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ReusableDetailCard(
-                          text: 'Rating',
-                          textData: '${animeData.rating} / 5',
-                        ),
-                        ReusableDetailCard(
-                          text: 'Episode',
-                          textData: animeData.episode.toString(),
-                        ),
-                        ReusableDetailCard(
-                          text: 'Views',
-                          textData: animeData.views,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'Synopsis',
-                      style: kTextStyle.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      '\t\t${animeData.synopsis}',
-                      textAlign: TextAlign.justify,
-                      style: kTextStyle.copyWith(
-                        fontSize: 14,
-                        height: 1.4,
-                        fontWeight: FontWeight.w400,
+                      ReusableFavoriteButton(),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ReusableDetailCard(
+                        text: 'Rating',
+                        textData: '${animeData.rating} / 5',
                       ),
+                      ReusableDetailCard(
+                        text: 'Episode',
+                        textData: animeData.episode.toString(),
+                      ),
+                      ReusableDetailCard(
+                        text: 'Views',
+                        textData: animeData.views,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Synopsis',
+                    style: kTextStyle.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    '\t\t${animeData.synopsis}',
+                    textAlign: TextAlign.justify,
+                    style: kTextStyle.copyWith(
+                      fontSize: 14,
+                      height: 1.4,
+                      fontWeight: FontWeight.w400,
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
               ),
             ),
           ],
