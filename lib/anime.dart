@@ -58,7 +58,7 @@ List<Anime> animeList = [
     genre: 'Action, Comedy',
     rating: 4.7,
     episode: 21,
-    views: '8.5 views',
+    views: '8.5M',
     synopsis:
         "On a supercontinent Earth, powerful monsters and villains have been wreaking havoc in the cities. In response, the millionaire Agoni creates the Hero Association, which employs superheroes to fight evil. Saitama, an unassociated hero, hails from City Z and performs heroic deeds as a hobby. He has trained himself to the point of being able to defeat any enemy with a single punch, but his unmatched strength has left him with an overwhelming sense of boredom. Saitama eventually becomes a reluctant mentor to Genos, a cyborg seeking revenge against another cyborg who killed his family and destroyed his hometown.",
     poster: 'opm_poster',

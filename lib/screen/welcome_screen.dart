@@ -1,28 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:the_anime_app/constant.dart';
 import 'package:the_anime_app/screen/home_screen.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
-
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  String name = "anonymous";
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  String? name;
+  late AnimationController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    _controller.forward();
+    _controller.addListener(() {
+      setState(() {});
+      print(_controller.value);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryBackgroundColor,
+      backgroundColor: kPrimaryBackgroundColor.withOpacity(_controller.value),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 120,
-              height: 120,
+              width: 140 * _controller.value,
+              height: 140 * _controller.value,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
@@ -47,11 +69,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   SizedBox(
                     height: 6,
                   ),
-                  Text(
-                    'Anime App',
+                  DefaultTextStyle(
                     style: kTextStyle.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 32,
+                    ),
+                    child: AnimatedTextKit(
+                      pause: Duration(seconds: 5),
+                      repeatForever: true,
+                      animatedTexts: [
+                        TypewriterAnimatedText('Anime App'),
+                      ],
                     ),
                   ),
                 ],
@@ -73,14 +101,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   name = inputName;
                 },
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 16,
                   color: kBlackTextColor,
                 ),
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
                   hintText: 'input your name',
-                  hintStyle: TextStyle(color: kTextHintColor, fontSize: 14),
+                  hintStyle: TextStyle(
+                    color: kTextHintColor,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),
@@ -90,9 +121,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             GestureDetector(
               onTap: () {
                 // route to home screen
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return HomeScreen(user: name);
-                }));
+                if (name == null) {
+                  Alert(
+                    context: context,
+                    type: AlertType.error,
+                    title: "Input your name",
+                    desc: "Name cannot be empty",
+                    buttons: [
+                      DialogButton(
+                        child: Text(
+                          "BACK",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        width: 120,
+                      )
+                    ],
+                  ).show();
+                } else {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return HomeScreen(user: name!);
+                  }));
+                }
               },
               child: Container(
                 height: 36,

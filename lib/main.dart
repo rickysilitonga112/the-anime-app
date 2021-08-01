@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:the_anime_app/screen/detail_screen.dart';
-import 'package:the_anime_app/screen/home_screen.dart';
 import 'package:the_anime_app/screen/welcome_screen.dart';
 
 void main() {
